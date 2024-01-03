@@ -11,10 +11,10 @@ public interface IVentaService {
 
     public void saveVenta(Venta venta);
     public List<Venta> getAllVentas();
-    public Venta getVenta (Long codigo_venta);
-    public void deleteVenta(Long codigo_venta);
+    public Venta getVenta (Long codigoVenta);
+    public void deleteVenta(Long codigoVenta);
     public void editVenta(Venta venta);
     public List<Producto> productosXVenta(Long id);
-    public String montoXCantidadXDia(LocalDate fecha_venta);
+    public String montoXCantidadXDia(LocalDate fechaVenta);
     public VentasDTO obtenerVentaConValorMasAlto();
 }

@@ -38,10 +38,15 @@ public class ClienteController {
         return new ResponseEntity<>("Cliente eliminado con éxito", HttpStatus.OK);
     }
 
-    @PutMapping("/clientes/editar")
-    public ResponseEntity<String> editCli(Cliente cliente) {
-        clienteService.editCliente(cliente);
-        return new ResponseEntity<>("Cliente editado con éxito", HttpStatus.OK);
+    @PutMapping("clientes/editar/{id}")
+    public ResponseEntity<String> editarCliente(@PathVariable Long id, @RequestBody Cliente clienteDatosNuevos) {
+        try {
+            clienteService.editCliente(id, clienteDatosNuevos);
+            return ResponseEntity.ok("Cliente editado correctamente");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado");
+        }
     }
-
 }
+
+

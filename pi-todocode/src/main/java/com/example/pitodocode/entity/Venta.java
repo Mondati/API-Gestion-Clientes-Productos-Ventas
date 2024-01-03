@@ -15,8 +15,8 @@ public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long codigo_venta;
-    private LocalDate fecha_venta;
+    private Long codigoVenta;
+    private LocalDate fechaVenta;
     private Double total;
     @OneToMany
     private List<Producto> listaProductos;
@@ -27,9 +27,9 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(Long codigo_venta, LocalDate fecha_venta, Double total, List<Producto> listaProductos, Cliente unCliente) {
-        this.codigo_venta = codigo_venta;
-        this.fecha_venta = fecha_venta;
+    public Venta(Long codigoVenta, LocalDate fechaVenta, Double total, List<Producto> listaProductos, Cliente unCliente) {
+        this.codigoVenta = codigoVenta;
+        this.fechaVenta = fechaVenta;
         this.total = total;
         this.listaProductos = listaProductos;
         this.unCliente = unCliente;

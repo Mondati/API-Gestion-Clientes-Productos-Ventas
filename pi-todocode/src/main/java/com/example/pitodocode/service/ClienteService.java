@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ClienteService implements IClienteService {
@@ -34,7 +36,19 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public void editCliente(Cliente cliente) {
-        this.clienteRepository.save(cliente);
+    public void editCliente(Long id, Cliente cliente)  {
+        Optional<Cliente> clienteOptional = clienteRepository.findById(id);
+
+        if (clienteOptional.isPresent()) {
+            Cliente clienteExistente = clienteOptional.get();
+            // Actualiza los campos del cliente existente con los datos nuevos
+            clienteExistente.setNombre(cliente.getNombre());
+            clienteExistente.setApellido(cliente.getApellido());
+            clienteExistente.setDni(cliente.getDni());
+            clienteRepository.save(clienteExistente);
+        } else {
+            throw new NoSuchElementException("Cliente no encontrado con ID: " + id);
+        }
     }
 }
+

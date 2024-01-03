@@ -29,13 +29,13 @@ public class VentaService implements IVentaService {
     }
 
     @Override
-    public Venta getVenta(Long codigo_venta) {
-        return ventaRepository.findByCodigoVenta(codigo_venta).orElse(null);
+    public Venta getVenta(Long codigoVenta) {
+        return ventaRepository.findByCodigoVenta(codigoVenta).orElse(null);
     }
 
     @Override
-    public void deleteVenta(Long codigo_venta) {
-        ventaRepository.deleteByCodigo(codigo_venta);
+    public void deleteVenta(Long codigoVenta) {
+        ventaRepository.deleteByCodigoVenta(codigoVenta);
     }
 
     @Override
@@ -56,8 +56,8 @@ public class VentaService implements IVentaService {
     }
 
     @Override
-    public String montoXCantidadXDia(LocalDate fecha_venta) {
-        List<Venta> ventasDelDia = ventaRepository.findByFechaVenta(fecha_venta);
+    public String montoXCantidadXDia(LocalDate fechaVenta) {
+        List<Venta> ventasDelDia = ventaRepository.findByFechaVenta(fechaVenta);
 
         Double sumatoriaMonto = 0.0;
         int cantidadTotalVentas = ventasDelDia.size();
@@ -74,7 +74,7 @@ public class VentaService implements IVentaService {
         Venta ventaConMontoMasAlto = ventaRepository.findFirstByOrderByTotalDesc();
         if (ventaConMontoMasAlto != null) {
             VentasDTO ventasDTO = new VentasDTO();
-            ventasDTO.setCodigo_venta(ventaConMontoMasAlto.getCodigo_venta());
+            ventasDTO.setCodigo_venta(ventaConMontoMasAlto.getCodigoVenta());
             ventasDTO.setTotal(ventaConMontoMasAlto.getTotal());
             ventasDTO.setCantidad_de_productos(ventaConMontoMasAlto.getListaProductos().size());
             ventasDTO.setNombre_cliente(ventaConMontoMasAlto.getUnCliente().getNombre());
