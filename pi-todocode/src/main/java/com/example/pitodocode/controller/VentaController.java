@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -63,6 +64,11 @@ public class VentaController {
     public ResponseEntity<String> deleteVenta(@PathVariable Long codigo_venta) {
         ventaService.deleteVenta(codigo_venta);
         return new ResponseEntity<>("Venta eliminada con éxito", HttpStatus.OK);
+    }
+
+    @GetMapping("/ventas/monto-cantidad-dia")
+    public String montoXCantidadXDia(@RequestParam("fechaVenta")  LocalDate fechaVenta) {
+        return ventaService.montoXCantidadXDia(fechaVenta);
     }
 
     @PutMapping("/ventas/editar")
