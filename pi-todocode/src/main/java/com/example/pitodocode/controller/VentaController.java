@@ -4,6 +4,7 @@ import com.example.pitodocode.dto.VentaDTO;
 import com.example.pitodocode.entity.Producto;
 import com.example.pitodocode.entity.Venta;
 import com.example.pitodocode.service.VentaService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,18 +61,19 @@ public class VentaController {
         }
     }
 
+    @GetMapping("/ventas/monto-cantidad-dia")
+    public String montoXCantidadXDia(@RequestParam("fechaVenta") LocalDate fechaVenta) {
+        return ventaService.montoXCantidadXDia(fechaVenta);
+    }
+
+    @Transactional
     @DeleteMapping("/ventas/eliminar/{codigo_venta}")
     public ResponseEntity<String> deleteVenta(@PathVariable Long codigo_venta) {
         ventaService.deleteVenta(codigo_venta);
         return new ResponseEntity<>("Venta eliminada con éxito", HttpStatus.OK);
     }
 
-    @GetMapping("/ventas/monto-cantidad-dia")
-    public String montoXCantidadXDia(@RequestParam("fechaVenta")  LocalDate fechaVenta) {
-        return ventaService.montoXCantidadXDia(fechaVenta);
-    }
-
-    @PutMapping("/ventas/editar")
+    @PutMapping("/ventas/editar/{id}")
     public ResponseEntity<String> editVenta(@PathVariable Long id, @RequestBody Venta venta) {
         try {
             ventaService.editVenta(id, venta);
