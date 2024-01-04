@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -39,8 +40,20 @@ public class VentaService implements IVentaService {
     }
 
     @Override
-    public void editVenta(Venta venta) {
-        ventaRepository.save(venta);
+    public void editVenta(Long id, Venta venta) {
+        Optional<Venta> ventaBuscada = ventaRepository.findById(id);
+        if (ventaBuscada.isPresent()){
+            Venta ventaExistente = ventaBuscada.get();
+            ventaExistente.setCodigoVenta(venta.getCodigoVenta());
+            ventaExistente.setFechaVenta(venta.getFechaVenta());
+            ventaExistente.setTotal(venta.getTotal());
+            ventaExistente.setListaProductos(venta.getListaProductos());
+            ventaExistente.setUnCliente(venta.getUnCliente());
+
+            ventaRepository.save(ventaExistente);
+        } else {
+            throw new NoSuchElementException("Venta no encontrada con ID: " + id);
+        }
     }
 
     @Override
@@ -65,7 +78,7 @@ public class VentaService implements IVentaService {
         for (Venta venta : ventasDelDia) {
             sumatoriaMonto += venta.getTotal();
         }
-        return "La sumatoria del monto del dia es: " + sumatoriaMonto + "y la cantidad total de ventas fueron: " + cantidadTotalVentas;
+        return "La sumatoria del monto del dia es: " + sumatoriaMonto + " y la cantidad total de ventas fueron: " + cantidadTotalVentas;
 
     }
 

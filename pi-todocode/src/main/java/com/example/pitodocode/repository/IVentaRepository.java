@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface IVentaRepository extends JpaRepository<Venta, Long> {
 
+    Optional<Venta> findById(Long id);
     Optional<Venta> findByCodigoVenta(Long codigoVenta);
     void deleteByCodigoVenta(Long codigoVenta);
     List<Venta> findByFechaVenta(LocalDate fechaVenta);

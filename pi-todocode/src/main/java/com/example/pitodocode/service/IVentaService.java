@@ -13,7 +13,7 @@ public interface IVentaService {
     public List<Venta> getAllVentas();
     public Venta getVenta (Long codigoVenta);
     public void deleteVenta(Long codigoVenta);
-    public void editVenta(Venta venta);
+    public void editVenta(Long id, Venta venta);
     public List<Producto> productosXVenta(Long id);
     public String montoXCantidadXDia(LocalDate fechaVenta);
     public VentaDTO obtenerVentaConValorMasAlto();

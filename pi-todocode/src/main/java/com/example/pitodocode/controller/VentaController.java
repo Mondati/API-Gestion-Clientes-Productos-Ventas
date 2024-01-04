@@ -72,9 +72,13 @@ public class VentaController {
     }
 
     @PutMapping("/ventas/editar")
-    public ResponseEntity<String> editVenta(Venta venta) {
-        ventaService.editVenta(venta);
-        return new ResponseEntity<>("Venta editada con éxito", HttpStatus.OK);
+    public ResponseEntity<String> editVenta(@PathVariable Long id, @RequestBody Venta venta) {
+        try {
+            ventaService.editVenta(id, venta);
+            return ResponseEntity.ok("Venta editada correctamente");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Venta no encontrado");
+        }
     }
 
 }
