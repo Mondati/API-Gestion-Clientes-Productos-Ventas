@@ -1,6 +1,6 @@
 package com.example.pitodocode.service;
 
-import com.example.pitodocode.dto.VentasDTO;
+import com.example.pitodocode.dto.VentaDTO;
 import com.example.pitodocode.entity.Producto;
 import com.example.pitodocode.entity.Venta;
 
@@ -16,5 +16,5 @@ public interface IVentaService {
     public void editVenta(Venta venta);
     public List<Producto> productosXVenta(Long id);
     public String montoXCantidadXDia(LocalDate fechaVenta);
-    public VentasDTO obtenerVentaConValorMasAlto();
+    public VentaDTO obtenerVentaConValorMasAlto();
 }

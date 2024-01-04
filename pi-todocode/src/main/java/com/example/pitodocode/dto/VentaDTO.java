@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class VentasDTO {
+public class VentaDTO {
 
     private Long codigo_venta;
 
@@ -14,10 +14,10 @@ public class VentasDTO {
     private String nombre_cliente;
     private String apellido_cliente;
 
-    public VentasDTO() {
+    public VentaDTO() {
     }
 
-    public VentasDTO(Long codigo_venta, int cantidad_de_productos, String nombre_cliente, String apellido_cliente) {
+    public VentaDTO(Long codigo_venta, int cantidad_de_productos, String nombre_cliente, String apellido_cliente) {
         this.codigo_venta = codigo_venta;
         this.cantidad_de_productos = cantidad_de_productos;
         this.nombre_cliente = nombre_cliente;

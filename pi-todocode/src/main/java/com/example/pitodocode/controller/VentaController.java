@@ -1,6 +1,6 @@
 package com.example.pitodocode.controller;
 
-import com.example.pitodocode.dto.VentasDTO;
+import com.example.pitodocode.dto.VentaDTO;
 import com.example.pitodocode.entity.Producto;
 import com.example.pitodocode.entity.Venta;
 import com.example.pitodocode.service.VentaService;
@@ -49,11 +49,11 @@ public class VentaController {
     }
 
     @GetMapping("/ventas/mayor_venta")
-    public ResponseEntity<VentasDTO> obtenerVentaConMontoMasAlto() {
-        VentasDTO ventasDTO = ventaService.obtenerVentaConValorMasAlto();
+    public ResponseEntity<VentaDTO> obtenerVentaConMontoMasAlto() {
+        VentaDTO ventaDTO = ventaService.obtenerVentaConValorMasAlto();
 
-        if (ventasDTO != null) {
-            return ResponseEntity.ok(ventasDTO);
+        if (ventaDTO != null) {
+            return ResponseEntity.ok(ventaDTO);
         } else {
             return ResponseEntity.notFound().build(); // Manejo de caso cuando no hay ventas
         }
