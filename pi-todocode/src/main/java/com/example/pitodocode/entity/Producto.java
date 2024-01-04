@@ -1,21 +1,20 @@
 package com.example.pitodocode.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "codigoProducto"))
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long codigo_producto;
+    @Column(unique = true)
+    private Long codigoProducto;
     private String nombre;
     private String marca;
     private Double costo;
@@ -24,8 +23,8 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto( Long codigo_producto, String nombre, String marca, Double costo, Double cantidad_disponible) {
-        this.codigo_producto = codigo_producto;
+    public Producto(Long codigoProducto, String nombre, String marca, Double costo, Double cantidad_disponible) {
+        this.codigoProducto = codigoProducto;
         this.nombre = nombre;
         this.marca = marca;
         this.costo = costo;

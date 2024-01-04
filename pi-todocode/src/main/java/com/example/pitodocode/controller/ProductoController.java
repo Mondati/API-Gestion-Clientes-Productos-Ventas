@@ -28,8 +28,8 @@ public class ProductoController {
     }
 
     @GetMapping("/productos/{codigo_producto}")
-    public Producto findPro(@RequestParam Long codigo) {
-        return productoService.listProducto(codigo);
+    public Producto findPro(@PathVariable Long codigo_producto) {
+        return productoService.listProducto(codigo_producto);
     }
 
     @GetMapping("/productos/falta_stock")
@@ -38,15 +38,19 @@ public class ProductoController {
     }
 
     @DeleteMapping("/productos/eliminar/{codigo_producto}")
-    public ResponseEntity<String> deletePro(@PathVariable Long codigo) {
-        productoService.deleteProducto(codigo);
+    public ResponseEntity<String> deletePro(@PathVariable Long codigo_producto) {
+        productoService.deleteProducto(codigo_producto);
         return new ResponseEntity<>("Producto eliminado con éxito", HttpStatus.OK);
     }
 
-    @PutMapping("/productos/editar")
-    public ResponseEntity<String> editPro(@RequestBody Producto producto) {
-        productoService.editProducto(producto);
-        return new ResponseEntity<>("Producto editado con éxito", HttpStatus.OK);
+    @PutMapping("/productos/editar/{id}")
+    public ResponseEntity<String> editPro(@PathVariable Long id, @RequestBody Producto producto) {
+        try {
+            productoService.editProducto(id, producto);
+            return ResponseEntity.ok("Producto editado correctamente");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
+        }
     }
 
 }

@@ -1,14 +1,15 @@
 package com.example.pitodocode.service;
 
 import com.example.pitodocode.entity.Producto;
-import com.example.pitodocode.entity.Venta;
 import com.example.pitodocode.repository.IProductoRepository;
 import com.example.pitodocode.repository.IVentaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -25,7 +26,7 @@ public class ProductoService implements IProductoService {
 
     @Override
     public Producto listProducto(Long codigo_producto) {
-        return productoRepository.findById(codigo_producto).orElse(null);
+        return productoRepository.findByCodigoProducto(codigo_producto).orElse(null);
     }
 
     @Override
@@ -34,13 +35,27 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
+    @Transactional
     public void deleteProducto(Long codigo_producto) {
-        productoRepository.deleteById(codigo_producto);
+        productoRepository.deleteByCodigoProducto(codigo_producto);
     }
 
     @Override
-    public void editProducto(Producto producto) {
-        this.productoRepository.save(producto);
+    public void editProducto(Long id, Producto producto) {
+        Optional<Producto> productoBuscado = productoRepository.findById(id);
+        if (productoBuscado.isPresent()) {
+            Producto productoExistente = productoBuscado.get();
+            productoExistente.setCodigoProducto(producto.getCodigoProducto());
+            productoExistente.setNombre(producto.getNombre());
+            productoExistente.setMarca(producto.getMarca());
+            productoExistente.setCosto(producto.getCosto());
+            productoExistente.setCantidad_disponible(producto.getCantidad_disponible());
+
+            productoRepository.save(productoExistente);
+
+        } else {
+            throw new NoSuchElementException("Producto no encontrado con ID: " + id);
+        }
     }
 
     @Override

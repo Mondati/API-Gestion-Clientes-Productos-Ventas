@@ -14,7 +14,7 @@ public interface IProductoService {
 
     public void deleteProducto(Long codigo_producto);
 
-    public void editProducto(Producto producto);
+    public void editProducto(Long id, Producto producto);
 
     public List<Producto> cantidadMenorA5();
 
