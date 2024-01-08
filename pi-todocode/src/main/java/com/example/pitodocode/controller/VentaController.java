@@ -3,6 +3,7 @@ package com.example.pitodocode.controller;
 import com.example.pitodocode.dto.VentaDTO;
 import com.example.pitodocode.entity.Producto;
 import com.example.pitodocode.entity.Venta;
+import com.example.pitodocode.service.IVentaService;
 import com.example.pitodocode.service.VentaService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 public class VentaController {
 
     @Autowired
-    private VentaService ventaService;
+    private IVentaService ventaService;
 
     @PostMapping("/ventas/crear")
     public ResponseEntity<String> saveVenta(@RequestBody Venta venta) {

@@ -1,6 +1,7 @@
 package com.example.pitodocode.controller;
 
 import com.example.pitodocode.entity.Producto;
+import com.example.pitodocode.service.IProductoService;
 import com.example.pitodocode.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.util.List;
 public class ProductoController {
 
     @Autowired
-    private ProductoService productoService;
+    private IProductoService productoService;
 
     @PostMapping("/productos/crear")
     public ResponseEntity<String> savePro(@RequestBody Producto producto) {

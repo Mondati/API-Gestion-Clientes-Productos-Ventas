@@ -2,6 +2,7 @@ package com.example.pitodocode.controller;
 
 import com.example.pitodocode.entity.Cliente;
 import com.example.pitodocode.service.ClienteService;
+import com.example.pitodocode.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.List;
 public class ClienteController {
 
     @Autowired
-    private ClienteService clienteService;
+    private IClienteService clienteService;
 
     @PostMapping("/clientes/crear")
     public ResponseEntity<String> saveCli(@RequestBody Cliente cliente) {
