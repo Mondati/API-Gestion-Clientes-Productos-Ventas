@@ -11,40 +11,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/productos")
 public class ProductoController {
 
     @Autowired
     private IProductoService productoService;
 
-    @PostMapping("/productos/crear")
+    @PostMapping("/crear")
     public ResponseEntity<String> savePro(@RequestBody Producto producto) {
         productoService.saveProducto(producto);
         return new ResponseEntity<>("Producto creado con éxito", HttpStatus.OK);
     }
 
-    @GetMapping("/productos")
+    @GetMapping("/listar-todos")
     @ResponseBody
     public List<Producto> allProducts() {
         return productoService.listAllProducto();
     }
 
-    @GetMapping("/productos/{codigo_producto}")
+    @GetMapping("/{codigo_producto}")
     public Producto findPro(@PathVariable Long codigo_producto) {
         return productoService.listProducto(codigo_producto);
     }
 
-    @GetMapping("/productos/falta_stock")
+    @GetMapping("/falta_stock")
     public List<Producto> stockMenorA5() {
         return productoService.cantidadMenorA5();
     }
 
-    @DeleteMapping("/productos/eliminar/{codigo_producto}")
+    @DeleteMapping("/eliminar/{codigo_producto}")
     public ResponseEntity<String> deletePro(@PathVariable Long codigo_producto) {
         productoService.deleteProducto(codigo_producto);
         return new ResponseEntity<>("Producto eliminado con éxito", HttpStatus.OK);
     }
 
-    @PutMapping("/productos/editar/{id}")
+    @PutMapping("/editar/{id}")
     public ResponseEntity<String> editPro(@PathVariable Long id, @RequestBody Producto producto) {
         try {
             productoService.editProducto(id, producto);

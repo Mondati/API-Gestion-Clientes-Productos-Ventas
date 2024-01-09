@@ -15,30 +15,31 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@RequestMapping("/ventas")
 public class VentaController {
 
     @Autowired
     private IVentaService ventaService;
 
-    @PostMapping("/ventas/crear")
+    @PostMapping("/crear")
     public ResponseEntity<String> saveVenta(@RequestBody Venta venta) {
         ventaService.saveVenta(venta);
         return new ResponseEntity<>("Venta creada con éxito", HttpStatus.OK);
     }
 
-    @GetMapping("/ventas")
+    @GetMapping("/listar-todas")
     @ResponseBody
     public List<Venta> getAllVentas() {
         return ventaService.getAllVentas();
     }
 
-    @GetMapping("/ventas/{codigo_venta}")
+    @GetMapping("/{codigo_venta}")
     @ResponseBody
     public Venta getVenta(@PathVariable Long codigo_venta) {
         return ventaService.getVenta(codigo_venta);
     }
 
-    @GetMapping("/ventas/productos/{id}")
+    @GetMapping("/productos/{id}")
     @ResponseBody
     public ResponseEntity<List<Producto>> productosXVenta(@PathVariable Long id) {
         List<Producto> productos = ventaService.productosXVenta(id);
@@ -51,7 +52,7 @@ public class VentaController {
         }
     }
 
-    @GetMapping("/ventas/mayor_venta")
+    @GetMapping("/mayor_venta")
     public ResponseEntity<VentaDTO> obtenerVentaConMontoMasAlto() {
         VentaDTO ventaDTO = ventaService.obtenerVentaConValorMasAlto();
 
@@ -62,19 +63,19 @@ public class VentaController {
         }
     }
 
-    @GetMapping("/ventas/monto-cantidad-dia")
+    @GetMapping("/monto-cantidad-dia")
     public String montoXCantidadXDia(@RequestParam("fechaVenta") LocalDate fechaVenta) {
         return ventaService.montoXCantidadXDia(fechaVenta);
     }
 
     @Transactional
-    @DeleteMapping("/ventas/eliminar/{codigo_venta}")
+    @DeleteMapping("/eliminar/{codigo_venta}")
     public ResponseEntity<String> deleteVenta(@PathVariable Long codigo_venta) {
         ventaService.deleteVenta(codigo_venta);
         return new ResponseEntity<>("Venta eliminada con éxito", HttpStatus.OK);
     }
 
-    @PutMapping("/ventas/editar/{id}")
+    @PutMapping("/editar/{id}")
     public ResponseEntity<String> editVenta(@PathVariable Long id, @RequestBody Venta venta) {
         try {
             ventaService.editVenta(id, venta);

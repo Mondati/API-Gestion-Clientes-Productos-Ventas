@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("clientes")
 public class ClienteController {
 
     @Autowired
@@ -22,24 +23,24 @@ public class ClienteController {
         return new ResponseEntity<>("Cliente creado con éxito", HttpStatus.OK);
     }
 
-    @GetMapping("/clientes")
+    @GetMapping("/listar-todos")
     @ResponseBody
     public List<Cliente> getAllCli() {
         return clienteService.getAllClientes();
     }
 
-    @GetMapping("/clientes/{id_cliente}")
+    @GetMapping("/{id_cliente}")
     public Cliente getCli(@PathVariable  Long id_cliente){
         return clienteService.getCliente(id_cliente);
     }
 
-    @DeleteMapping("/clientes/eliminar/{id_cliente}")
+    @DeleteMapping("/eliminar/{id_cliente}")
     public ResponseEntity<String> deleteCli(@PathVariable Long id_cliente) {
         clienteService.deleteCliente(id_cliente);
         return new ResponseEntity<>("Cliente eliminado con éxito", HttpStatus.OK);
     }
 
-    @PutMapping("clientes/editar/{id}")
+    @PutMapping("/editar/{id}")
     public ResponseEntity<String> editarCliente(@PathVariable Long id, @RequestBody Cliente clienteDatosNuevos) {
         try {
             clienteService.editCliente(id, clienteDatosNuevos);

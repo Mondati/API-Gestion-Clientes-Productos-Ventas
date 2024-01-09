@@ -1,13 +1,17 @@
 package com.example.pitodocode.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "codigoProducto"))
+@AllArgsConstructor
+@NoArgsConstructor
 public class Producto {
 
     @Id
@@ -19,16 +23,5 @@ public class Producto {
     private String marca;
     private Double costo;
     private Double cantidad_disponible;
-
-    public Producto() {
-    }
-
-    public Producto(Long codigoProducto, String nombre, String marca, Double costo, Double cantidad_disponible) {
-        this.codigoProducto = codigoProducto;
-        this.nombre = nombre;
-        this.marca = marca;
-        this.costo = costo;
-        this.cantidad_disponible = cantidad_disponible;
-    }
 
 }
